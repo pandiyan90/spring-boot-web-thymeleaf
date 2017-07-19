@@ -1,5 +1,7 @@
 package com.alex.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,7 @@ public class SampleController {
 		catch(Exception ex){
 			ex.printStackTrace();
 		}
-		model.addObject("message", message+", "+person);
+		model.addObject("message", person);
 		model.setViewName("welcome");
 		return model;
 	}
@@ -54,6 +56,22 @@ public class SampleController {
 		}
 		model.put("message", message);
 		return "welcome";
+	}
+
+	@GetMapping("/find")
+	public ModelAndView find(){
+		List<Person> person=null;
+		ModelAndView model = new ModelAndView();
+		try{
+			person = new ArrayList<>();
+			person = dao.findAll();
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		model.addObject("message", person);
+		model.setViewName("welcome");
+		return model;
 	}
 
 }
